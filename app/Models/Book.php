@@ -2,16 +2,11 @@
 
 namespace App\Models;
 
-use App\Models\Author;
-use App\Models\Borrow;
-use App\Models\Category;
-use App\Models\BookAuthor;
-use App\Models\Publishing;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @mixin IdeHelperBook
@@ -36,7 +31,7 @@ class Book extends Model
     /**
      * Get the category that owns the Book
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function category(): BelongsTo
     {
@@ -46,7 +41,7 @@ class Book extends Model
     /**
      * Get the language that owns the Book
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function language(): BelongsTo
     {
@@ -56,7 +51,7 @@ class Book extends Model
     /**
      * Get the publishing that owns the Book
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function publishing(): BelongsTo
     {
@@ -66,7 +61,7 @@ class Book extends Model
     /**
      * The authors that belong to the Book
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function authors(): BelongsToMany{
         return $this->belongsToMany(Author::class, 'books_authors')->using(BookAuthor::class);
@@ -75,7 +70,7 @@ class Book extends Model
     /**
      * Get all of the borrows for the Book
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function borrows(): HasMany {
         return $this->hasMany(Borrow::class);

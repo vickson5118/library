@@ -3,23 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Publishing;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View;
 
 class PublishingController extends Controller {
 
-    public function index(){
+    /**
+     * @throws AuthorizationException
+     */
+    public function index() : View{
         Gate::authorize('all',Publishing::class);
         return view('publishings.index',[
             'publishings' => Publishing::all()
         ]);
     }
-    
-    public function store(Request $request){
+
+    /**
+     * @throws AuthorizationException
+     */
+    public function store(Request $request) : string{
 
         Gate::authorize('all',Publishing::class);
-        
+
         $validated = $request->validate([
             'title' => ['required','min:3','max:80','unique:publishings,title'],
         ]);
@@ -28,11 +36,14 @@ class PublishingController extends Controller {
             'title' => ucfirst($validated['title'])
         ]);
 
-        return json_encode($editor);    
+        return json_encode($editor);
 
     }
 
-    public function update(Request $request){
+    /**
+     * @throws AuthorizationException
+     */
+    public function update(Request $request) : string {
 
     Gate::authorize('all',Publishing::class);
 
@@ -45,14 +56,17 @@ class PublishingController extends Controller {
         $publishing->title = ucfirst($validated['title']);
         $publishing->save();
 
-        return json_encode(['success' => 'true']); 
+        return json_encode(['success' => 'true']);
 
     }
 
 
-    public function delete(Request $request){
+    /**
+     * @throws AuthorizationException
+     */
+    public function delete(Request $request) : string{
         Gate::authorize('all',Publishing::class);
         Publishing::find($request->input('id'))->delete();
-        return json_encode(['success' => 'true']); 
+        return json_encode(['success' => 'true']);
     }
 }

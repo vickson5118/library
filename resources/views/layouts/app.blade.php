@@ -14,8 +14,8 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js','resources/js/functions.js'])
-    
-    
+
+
 </head>
 
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
@@ -39,8 +39,11 @@
                 <!-- Banniere noir -->
                 <div class="bg-[#2a2e32] min-h-24 relative">
                     <div class="text-white text-center flex justify-center items-center min-h-24">
-                        <i class="bi bi-book-fill text-4xl text-[#596643] align-middle mr-3"></i>
-                        <span class="text-2xl font-bold">Documents</span>
+
+                        <a href="{{ Route('app.index') }}" class="text-2xl font-bold">
+                            <i class="bi bi-book-fill text-4xl text-[#596643] align-middle mr-3"></i>
+                            <span>Documents</span>
+                        </a>
                     </div>
                 </div>
 

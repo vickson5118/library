@@ -23,6 +23,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'username',
         'password',
         'admin'
     ];
@@ -53,7 +54,7 @@ class User extends Authenticatable
    /**
     * Get all of the borrow for the User
     *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
+    * @return HasMany
     */
    public function borrows(): HasMany {
        return $this->hasMany(Borrow::class);

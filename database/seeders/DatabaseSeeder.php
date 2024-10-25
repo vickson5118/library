@@ -4,12 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\Author;
 use App\Models\Book;
-use App\Models\Categorie;
-use App\Models\Editor;
+use App\Models\Category;
 use App\Models\Language;
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Publishing;
 use Illuminate\Database\Seeder;
+
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);*/
 
-        //Categorie::factory(3)->create();
-        //Language::factory(5)->create();
-        //Editor::factory(10)->create();
-        //Book::factory(15)->create();
+        Category::factory(3)->create();
+        Language::factory(5)->create();
+        Publishing::factory(10)->create();
+        Book::factory(15)->create();
         Author::factory(10)->create();
     }
 }

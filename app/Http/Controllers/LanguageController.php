@@ -3,15 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Language;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View;
 
 class LanguageController extends Controller
 {
 
-    public function index()
-    {
+    /**
+     * @throws AuthorizationException
+     */
+    public function index() : View {
         Gate::authorize('all',Language::class);
         return view('languages.index', [
             'languages' => Language::all()
@@ -19,7 +23,10 @@ class LanguageController extends Controller
     }
 
 
-    public function store(Request $request){
+    /**
+     * @throws AuthorizationException
+     */
+    public function store(Request $request) : string {
         Gate::authorize('all',Language::class);
         $validated = $request->validate([
             'title' => ['required', 'min:3', 'max:20', 'unique:languages,title'],
@@ -32,8 +39,10 @@ class LanguageController extends Controller
         return json_encode($language);
     }
 
-    public function update(Request $request)
-    {
+    /**
+     * @throws AuthorizationException
+     */
+    public function update(Request $request) : string{
 
         Gate::authorize('all',Language::class);
         $validated = $request->validate([
@@ -49,7 +58,10 @@ class LanguageController extends Controller
     }
 
 
-    public function delete(Request $request){
+    /**
+     * @throws AuthorizationException
+     */
+    public function delete(Request $request) : string{
         Gate::authorize('all',Language::class);
         Language::find($request->input('id'))->delete();
         return json_encode(['success' => 'true']);

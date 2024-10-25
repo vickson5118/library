@@ -43,7 +43,7 @@ namespace App\Models{
  * @property string $title
  * @property string|null $publication
  * @property string $summary
- * @property int|null $page
+ * @property int $page
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property int $category_id
@@ -89,11 +89,15 @@ namespace App\Models{
  *
  * @property int $author_id
  * @property int $book_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor query()
  * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor whereAuthorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor whereBookId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 	#[\AllowDynamicProperties]

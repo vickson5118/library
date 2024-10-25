@@ -3,20 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\View\View;
 
 class CategoryController extends Controller {
 
-    public function index(){
+    /**
+     * @throws AuthorizationException
+     */
+    public function index() : View{
         Gate::authorize('all',Category::class);
         return view('categories.index',[
             'categories' => Category::all()
         ]);
     }
-    
-    public function store(Request $request){
+
+    /**
+     * @throws AuthorizationException
+     */
+    public function store(Request $request) : string {
         Gate::authorize('all',Category::class);
         $validated = $request->validate([
             'title' => ['required','min:3','max:30','unique:categories,title'],
@@ -29,7 +37,10 @@ class CategoryController extends Controller {
         return json_encode($category);
     }
 
-    public function update(Request $request){
+    /**
+     * @throws AuthorizationException
+     */
+    public function update(Request $request) : string {
         Gate::authorize('all',Category::class);
 
         $validated = $request->validate([
@@ -41,14 +52,17 @@ class CategoryController extends Controller {
         $category->title = ucfirst($validated['title']);
         $category->save();
 
-        return json_encode(['success' => 'true']); 
+        return json_encode(['success' => 'true']);
 
     }
 
 
-    public function delete(Request $request){
+    /**
+     * @throws AuthorizationException
+     */
+    public function delete(Request $request) : string {
         Gate::authorize('all',Category::class);
         Category::find($request->input('id'))->delete();
-        return json_encode(['success' => 'true']); 
+        return json_encode(['success' => 'true']);
     }
 }

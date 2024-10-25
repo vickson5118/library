@@ -7,16 +7,19 @@
             @if ($book->borrow)
                 @if ($borrow != null)
                     <button id="back_book" type="button"
-                        class="text-white py-2 px-5 bg-red-500 rounded-xl absolute right-36 t-5 font-bold">Indisponible</button>
+                            class="text-white py-2 px-5 bg-red-500 rounded-xl absolute right-36 t-5 font-bold">
+                        Indisponible
+                    </button>
                 @endif
             @else
                 <button id="borrow_book" type="button"
-                    class="text-white py-2 px-5 bg-green-500 rounded-xl absolute right-40 t-5 font-bold">Disponible</button>
+                        class="text-white py-2 px-5 bg-green-500 rounded-xl absolute right-40 t-5 font-bold">Disponible
+                </button>
             @endif
 
             @can('update', $book)
                 <a href="{{ route('book.edit', ['book' => $book]) }}"
-                    class="text-white decoration-white no-underline py-2 px-5 bg-blue-500 rounded-xl absolute right-72 t-5 font-bold inline-block">Modifier</a>
+                   class="text-white decoration-white no-underline py-2 px-5 bg-blue-500 rounded-xl absolute right-72 t-5 font-bold inline-block">Modifier</a>
             @endcan
         @endauth
 
@@ -26,7 +29,7 @@
         <div class="w-full">
             <div class="px-10 pt-10 pb-4">
                 <h1 class="font-bold text-3xl">{{ $book->title }}</h1>
-                <div> <span class="font-bold underline">Auteur(s)</span> :
+                <div><span class="font-bold underline">Auteur(s)</span> :
                     @foreach ($book->authors as $author)
                         @if ($loop->last)
                             <span>{{ $author->name }}</span>
@@ -81,11 +84,12 @@
 
                 @if ($author->picture != null)
                     <img src="/storage/{{ $author->picture }}" alt="{{ $author->name }}"
-                        class="min-w-32 min-h-32 max-w-32 max-h-32 rounded-full inline-block">
+                         class="min-w-32 min-h-32 max-w-32 max-h-32 rounded-full inline-block">
                 @else
                     <div
                         class="min-w-32 min-h-32 max-w-32 max-h-32 rounded-full inline-block bg-white text-6xl font-bold pt-8 pl-6">
-                        SK</div>
+                        {{ \App\Http\Controllers\BookController::initialName($author->name)  }}
+                    </div>
                 @endif
 
                 <div class="ml-8">
@@ -99,17 +103,23 @@
     <!-- Liste des emprunts -->
     <div class="p-10 bg-gray-300 rounded-md mx-20 mt-10 shadow-md">
         <p class="text-3xl font-bold w-full mb-10">Les emprunts</p>
-        <div class="mx-auto min-w-full">
-            <table class="table-layout: auto; min-w-full">
-                <thead class="w-full">
+        @if(count($borrows) == 0)
+            <div class="col-span-7 text-black/70 text-center ">
+                <p class="text-3xl ">Aucun emprunt enregistré pour ce livre</p>
+                <p class="text-md">Retrouvez les différents emprunts de ce livre dans cette section</p>
+            </div>
+        @else
+            <div class="mx-auto min-w-full">
+                <table class="table-layout: auto; min-w-full">
+                    <thead class="w-full">
                     <tr class="border-2 h-16">
                         <th class="w-2/12 text-center border-r-2">N°</th>
                         <th class="w-6/12 text-center border-r-2">Nom de l'emprunteur</th>
                         <th class="w-2/12 text-center border-r-2">Date d'emprunt</th>
                         <th class="w-2/12 text-center border-r-2">Date de retour</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     @foreach ($borrows as $borrow)
                         <tr class="h-14 border-2">
                             <td class="text-center border-r-2"> {{ $loop->iteration }} </td>
@@ -125,10 +135,11 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
 
-        </div>
+            </div>
+        @endif
     </div>
 
     @include('partials.modal-confirm-action-borrow', [
@@ -143,13 +154,13 @@
     ])
 
     <script type="module">
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            $('#borrow_book').on('click', function() {
+            $('#borrow_book').on('click', function () {
                 $('#borrowBookModal').modal()
             })
 
-            $('#back_book').on('click', function() {
+            $('#back_book').on('click', function () {
                 $('#backBookModal').modal()
             })
 
