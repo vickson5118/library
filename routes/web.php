@@ -11,18 +11,23 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 });
 
 Route::prefix('/users')->name('user.')->controller(UserController::class)->group(function(){
+
     Route::get('/','index')->name('index');
     Route::post('/delete','delete')->name('delete');
     Route::post('/update','update')->name('update');
+
 });
 
 Route::prefix('/languages')->name('language.')->controller(LanguageController::class)->group(function(){
+
     Route::get('/','index')->name('index');
     Route::post('/create','store')->name('store');
     Route::post('/update','update')->name('update');
@@ -31,29 +36,36 @@ Route::prefix('/languages')->name('language.')->controller(LanguageController::c
 });
 
 Route::prefix('/publishings')->name('publishing.')->controller(PublishingController::class)->group(function(){
+
     Route::get('/','index')->name('index');
     Route::post('/create','store')->name('store');
     Route::post('/update','update')->name('update');
     Route::post('/delete','delete')->name('delete');
+
 });
 
 Route::prefix('/authors')->name('author.')->controller(AuthorController::class)->group(function(){
+
     Route::post('/delete','destroy')->name('delete');
     Route::get('/','index')->name('index');
     Route::post('/create','store')->name('store');
     Route::post('/update','update')->name('update');
+
 });
 
 Route::prefix('/categories')->name('category.')->controller(CategoryController::class)->group(function(){
+
     Route::get('/','index')->name('index');
     Route::post('/create','store')->name('store');
     Route::post('/update','update')->name('update');
     Route::post('/delete','delete')->name('delete');
+
 });
 
 Route::get('/', [BookController::class, 'index'])->name('app.index');
 
 Route::prefix('/books')->name('book.')->controller(BookController::class)->group(function(){
+
     Route::get('/create','create')->name('create')->middleware('auth');
     Route::post('/create','store')->name('store')->middleware('auth');
     Route::get('/borrows','borrowIndex')->name('index.borrow');
@@ -62,6 +74,7 @@ Route::prefix('/books')->name('book.')->controller(BookController::class)->group
     Route::patch('/edit/{book:slug}','update')->name('update')->middleware('auth');
     Route::patch('/borrow/{book:slug}','borrow')->name('borrow')->middleware('auth');
     Route::patch('/back/{book:slug}','back')->name('back')->middleware('auth');
+
 });
 
 
