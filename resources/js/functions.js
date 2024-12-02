@@ -1,3 +1,4 @@
+//Select dans le formulaire de creation
 window.addTitleOnCategoryLanguageEditorSelect = function (select, name, lien) {
     $('select#' + select).selectize({
         create: function (input, callback) {
@@ -31,6 +32,7 @@ window.addTitleOnCategoryLanguageEditorSelect = function (select, name, lien) {
 
 }
 
+//Ajout dans la partie admin
 window.addTitleOnCategoryLanguageEditor = function (name, link) {
 
     $("#" + name).on('submit', function (event) {
@@ -48,7 +50,7 @@ window.addTitleOnCategoryLanguageEditor = function (name, link) {
             data: {
                 'title': $("#title").val()
             },
-            success: function (response) {
+            success: function () {
                 location.reload();
             },
             error: function (response) {
@@ -77,7 +79,7 @@ window.updateTitleOnCategoryLanguageEditor = function (name, link, id) {
                 'title': $("#edit-title").val(),
                 'id': id
             },
-            success: function (response) {
+            success: function () {
                 location.reload();
             },
             error: function (response) {
@@ -109,7 +111,7 @@ window.deleteTitleOnCategoryLanguageEditorOrAuthor = function (name, link, id) {
                     location.reload()
                 }
             },
-            error: function (response) {
+            error: function () {
                 location.reload()
             }
         });
