@@ -15,6 +15,7 @@ namespace App\Models{
 /**
  * 
  *
+ * @mixin 
  * @property int $id
  * @property string $name
  * @property string $about
@@ -29,16 +30,15 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Author whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Author whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Author wherePicture($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperAuthor {}
+	class Author extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin 
  * @property int $id
  * @property string $title
  * @property string|null $publication
@@ -52,6 +52,7 @@ namespace App\Models{
  * @property string $cover
  * @property string $slug
  * @property int $borrow
+ * @property string|null $pdf
  * @property-read \App\Models\BookAuthor $pivot
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Author> $authors
  * @property-read int|null $authors_count
@@ -71,22 +72,22 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereLanguageId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book wherePage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Book wherePdf($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book wherePublication($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book wherePublishingId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereSummary($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Book whereUpdatedAt($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperBook {}
+	class Book extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin 
  * @property int $author_id
  * @property int $book_id
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -98,16 +99,15 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor whereBookId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BookAuthor whereUpdatedAt($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperBookAuthor {}
+	class BookAuthor extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin 
  * @property int $id
  * @property int $user_id
  * @property int $book_id
@@ -125,34 +125,33 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Borrow whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Borrow whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Borrow whereUserId($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperBorrow {}
+	class Borrow extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin 
  * @property int $id
  * @property string $title
  * @property-read \App\Models\Book|null $book
+ * @method static \Database\Factories\CategoryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category query()
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereTitle($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperCategory {}
+	class Category extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin 
  * @property int $id
  * @property string $title
  * @property-read \App\Models\Book|null $book
@@ -162,37 +161,37 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Language query()
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereTitle($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperLanguage {}
+	class Language extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin 
  * @property int $id
  * @property string $title
  * @property-read \App\Models\Book|null $book
+ * @method static \Database\Factories\PublishingFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Publishing newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Publishing newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Publishing query()
  * @method static \Illuminate\Database\Eloquent\Builder|Publishing whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Publishing whereTitle($value)
- * @mixin \Eloquent
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperPublishing {}
+	class Publishing extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
  * 
  *
+ * @mixin IdeHelperUser
  * @property int $id
  * @property string $name
  * @property string $email
+ * @property string $username
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property mixed $password
  * @property string|null $remember_token
@@ -216,9 +215,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
  */
-	#[\AllowDynamicProperties]
-	class IdeHelperUser {}
+	class User extends \Eloquent {}
 }
 

@@ -1,8 +1,3 @@
-@php
-    $name ?? '';
-@endphp
-
-
 <div id="{{$name}}Modal" class="modal">
 
     <p class="w-full text-center text-lg pt-5" id="modal-texte"></p>

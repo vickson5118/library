@@ -7,7 +7,7 @@
                     <img src="" alt=""
                          class="bg-white min-h-16 w-16 rounded-full relative top-4 left-8 inline-block">
                     <a href="{{ route('profile.edit') }}"
-                       class="text-white text-lg ml-12 mt-8">{{  Auth::user()->name }}</a>
+                       class="text-white text-lg ml-12 mt-8">{{  Auth::user()->username }}</a>
                 @endauth
             </div>
         </div>

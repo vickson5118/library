@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * @mixin IdeHelperLanguage
+ * @mixin
  */
 class Language extends Model
 {

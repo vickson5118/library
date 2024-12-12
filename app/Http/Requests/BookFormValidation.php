@@ -32,7 +32,8 @@ class BookFormValidation extends FormRequest
             'language' => ['required','exists:languages,id'],
             'publishing' => ['required','exists:publishings,id'],
             'author' => ['array','required','exists:authors,id'],
-            'cover' => ['image',Rule::requiredIf(fn() => $this->book == null)]
+            'cover' => ['image',Rule::requiredIf(fn() => $this->book == null)],
+            'pdf' => ['nullable','file','mimes:pdf','max:50000'],
         ];
     }
 }

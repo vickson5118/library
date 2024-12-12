@@ -102,18 +102,23 @@ class BookController extends Controller
 
         $validated = $request->validated();
 
-        $book = Book::create([
-            'title' => ucfirst($validated['title']),
-            'publication' => $validated['publication'],
-            'summary' => ucfirst($validated['summary']),
-            'page' => $validated['page'],
-            'category_id' => $validated['category'],
-            'language_id' => $validated['language'],
-            'publishing_id' => $validated['publishing'],
-            'cover' => $request->file('cover')->store('books', 'public'),
-            'slug' => $this->getBookSlug($validated['title'])
-        ]);
+        $book = new Book();
 
+        $book->title = $validated['title'];
+        $book->publication = $validated['publication'];
+        $book->category_id = $validated['category'];
+        $book->language_id = $validated['language'];
+        $book->summary = $validated['summary'];
+        $book->publishing_id = $validated['publishing'];
+        $book->page = $validated['page'];
+        $book->slug = Str::slug($validated['title']);
+        $book->cover = $request->file('cover')->store('books', 'public');
+
+        if (isset($validated['pdf']) && $validated['pdf'] != null) {
+            $book->pdf = $request->file('pdf')->storeAs('books/pdf', Str::slug($validated['title']).'.pdf', 'public');
+        }
+
+        $book->save();
         $book->authors()->sync($validated['author']);
 
         return to_route('app.index', [
@@ -173,12 +178,20 @@ class BookController extends Controller
         $book->language_id = $validated['language'];
         $book->summary = ucfirst($validated['summary']);
         $book->page = $validated['page'];
-        $book->slug = $this->getBookSlug($validated['title']);
+        $book->slug = str::slug($validated['title']);
 
         if (isset($validated['cover']) && $validated['cover'] != null) {
             Storage::delete($book->cover);
             $book->cover = $request->file('cover')->store('books', 'public');
         }
+
+        if (isset($validated['pdf']) && $validated['pdf'] != null) {
+            if($book->pdf != null) {
+                Storage::delete($book->pdf);
+            }
+            $book->pdf = $request->file('pdf')->storeAs('books/pdf', Str::slug($validated['title']).'.pdf', 'public');
+        }
+
         $book->save();
         $book->authors()->sync($validated['author']);
 
@@ -238,11 +251,6 @@ class BookController extends Controller
             'borrows' => $borrows,
             'count' => $borrows->count(),
         ]);
-    }
-
-    private function getBookSlug($title): string
-    {
-        return Str::slug($title);
     }
 
     public static function initialName($nom): string

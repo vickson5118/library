@@ -30,7 +30,6 @@
                                     class="no-underline text-[#4F46E5] font-bold btn-modal-update-category">Editer</a>
                                 <a href="#deleteCategoryModal" rel="modal:open"
                                     class="no-underline text-red-600 font-bold block btn-modal-delete-category">Supprimer</a>
-                                </form>
                             </td>
                         </tr>
                     @endforeach

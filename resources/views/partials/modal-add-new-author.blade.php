@@ -1,8 +1,3 @@
-@php
-    $name ?? '';
-    $slug ?? '';
-@endphp
-
 <div id="{{$name}}Modal" class="modal authorCreateUpdate">
 
     <p class="w-full text-center text-xl pt-5 pb-8">Ajouter un auteur</p>
@@ -18,7 +13,7 @@
                     value="{{ old('picture') }}" />
                 <div class='error text-red-600'></div>
             </div>
-    
+
             <div class = 'mb-4'>
                 <label for="name" class='block font-medium text-sm text-black/80'>Nom de l'auteur</label>
                 <input type="text" name="{{$slug}}name" id="{{$slug}}name" required

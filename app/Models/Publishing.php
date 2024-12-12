@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * @mixin IdeHelperPublishing
+ * @mixin
  */
 class Publishing extends Model
 {

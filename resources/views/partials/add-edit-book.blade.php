@@ -12,7 +12,10 @@
     @endif
 
     <div class="grid grid-cols-2">
-        <x-input-group :label="__('Couverture')" :name="__('cover')" :type="__('file')" :value="$book->cover" :message="$errors->cover" />
+        <div class="grid grid-cols-2">
+            <x-input-group :label="__('Couverture')" :name="__('cover')" :type="__('file')" :value="$book->cover" :message="$errors->cover" />
+            <x-input-group :label="__('Livre en PDF')" :name="__('pdf')" :type="__('file')" :value="$book->pdf" :message="$errors->pdf" />
+        </div>
         <x-input-group :label="__('Titre du livre')" :name="__('title')" :type="__('text')" :value="$book->title" :message="$errors->title" />
         <x-input-group :label="__('Date de publication du livre')" :name="__('publication')" :type="__('date')" :value="$book->publication" :required="false"
             :message="$errors->publication" />
@@ -74,7 +77,7 @@
 
                 $("#addAuthor").on('submit', function(event) {
                     event.preventDefault();
-                    
+
                     let data = new FormData(this);
                     $.ajax({
                         method: 'post',

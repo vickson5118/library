@@ -1,10 +1,3 @@
-@php
-    $name ?? '';
-    $text ?? '';
-    $route ?? '';
-@endphp
-
-
 <div id="{{$name}}Modal" class="modal">
 
     <p class="w-full text-center text-xl pt-5">{{ $text }}</p>

@@ -1,75 +1,80 @@
+@php use App\Http\Controllers\BookController; @endphp
 @extends('layouts.app')
 
 @section('content')
-    <div class="p-10 flex bg-gray-300 rounded-md mx-20 mt-10 shadow-md">
+    <div class="p-10 bg-gray-300 rounded-md mx-20 mt-10 shadow-md">
 
-        @auth
-            @if ($book->borrow)
-                @if ($borrow != null)
-                    <button id="back_book" type="button"
-                            class="text-white py-2 px-5 bg-red-500 rounded-xl absolute right-36 t-5 font-bold">
-                        Indisponible
-                    </button>
-                @endif
-            @else
-                <button id="borrow_book" type="button"
-                        class="text-white py-2 px-5 bg-green-500 rounded-xl absolute right-40 t-5 font-bold">Disponible
-                </button>
+        <div class="absolute right-32">
+            @if ($book->pdf != null)
+                <a href="{{ Storage::url($book->pdf)}}" class="text-white py-3 px-5 bg-gray-500 rounded-md font-bold inline-block" target="_blank">
+                    Télécharger le livre
+                </a>
             @endif
 
-            @can('update', $book)
-                <a href="{{ route('book.edit', ['book' => $book]) }}"
-                   class="text-white decoration-white no-underline py-2 px-5 bg-blue-500 rounded-xl absolute right-72 t-5 font-bold inline-block">Modifier</a>
-            @endcan
-        @endauth
-
-        <div class="p-10">
-            <img src="/storage/{{ $book->cover }}" alt="" class="w-64 min-w-64 max-w-64">
-        </div>
-        <div class="w-full">
-            <div class="px-10 pt-10 pb-4">
-                <h1 class="font-bold text-3xl">{{ $book->title }}</h1>
-                <div><span class="font-bold underline">Auteur(s)</span> :
-                    @foreach ($book->authors as $author)
-                        @if ($loop->last)
-                            <span>{{ $author->name }}</span>
-                        @else
-                            <span>{{ $author->name }}</span>,
-                        @endif
-                    @endforeach
-                </div>
+            @auth
                 @if ($book->borrow)
-                    <div class="text-red-500">
-                        <span class="font-bold underline">Emprunté par</span> : {{ $borrows->last()->user->name }}, le
-                        {{ date('d/m/Y', strtotime($borrows->last()->created_at)) }}
-                    </div>
+                    @if ($borrow != null)
+                        <button id="back_book" type="button" class="text-white py-3 px-5 bg-red-500 rounded-md font-bold">Indisponible</button>
+                    @endif
+                @else
+                    <button id="borrow_book" type="button" class="text-white py-3 px-5 bg-green-500 rounded-md font-bold">Disponible</button>
                 @endif
-                <p class="py-4 text-justify">{{ $book->summary }}</p>
-                <hr>
+
+                @can('update', $book)
+                    <a href="{{ route('book.edit', ['book' => $book]) }}" class="text-white py-3 px-5 bg-blue-500 rounded-md font-bold inline-block">Modifier</a>
+                @endcan
+            @endauth
+        </div>
+
+        <div class="flex">
+            <div class="p-10">
+                <img src="/storage/{{ $book->cover }}" alt="" class="w-64 min-w-64 max-w-64">
             </div>
-            <div class="grid grid-cols-4 px-10">
-                <div class="text-center">
-                    <p class="mb-2">Langue</p>
-                    <i class="bi bi-translate text-3xl"></i>
-                    <p class="pt-2">{{ $book->language->title }}</p>
+            <div class="w-full">
+                <div class="px-10 pt-10 pb-4">
+                    <h1 class="font-bold text-3xl">{{ $book->title }}</h1>
+                    <div><span class="font-bold underline">Auteur(s)</span> :
+                        @foreach ($book->authors as $author)
+                            @if ($loop->last)
+                                <span>{{ $author->name }}</span>
+                            @else
+                                <span>{{ $author->name }}</span>,
+                            @endif
+                        @endforeach
+                    </div>
+                    @if ($book->borrow)
+                        <div class="text-red-500">
+                            <span class="font-bold underline">Emprunté par</span> : {{ $borrows->last()->user->name }}, le
+                            {{ date('d/m/Y', strtotime($borrows->last()->created_at)) }}
+                        </div>
+                    @endif
+                    <p class="py-4 text-justify">{{ $book->summary }}</p>
+                    <hr>
                 </div>
+                <div class="grid grid-cols-4 px-10">
+                    <div class="text-center">
+                        <p class="mb-2">Langue</p>
+                        <i class="bi bi-translate text-3xl"></i>
+                        <p class="pt-2">{{ $book->language->title }}</p>
+                    </div>
 
-                <div class="text-center">
-                    <p class="mb-2">Editeur</p>
-                    <i class="bi bi-buildings-fill text-3xl"></i>
-                    <p class="pt-2">{{ $book->publishing->title }}</p>
-                </div>
+                    <div class="text-center">
+                        <p class="mb-2">Editeur</p>
+                        <i class="bi bi-buildings-fill text-3xl"></i>
+                        <p class="pt-2">{{ $book->publishing->title }}</p>
+                    </div>
 
-                <div class="text-center">
-                    <p class="mb-2">Nombres de pages</p>
-                    <i class="bi bi-journals text-3xl"></i>
-                    <p class="pt-2">{{ $book->page }}</p>
-                </div>
+                    <div class="text-center">
+                        <p class="mb-2">Nombres de pages</p>
+                        <i class="bi bi-journals text-3xl"></i>
+                        <p class="pt-2">{{ $book->page }}</p>
+                    </div>
 
-                <div class="text-center">
-                    <p class="mb-2">Date de publication</p>
-                    <i class="bi bi-calendar3 text-3xl"></i>
-                    <p class="pt-2">{{ date('d/m/Y', strtotime($book->publication)) }}</p>
+                    <div class="text-center">
+                        <p class="mb-2">Date de publication</p>
+                        <i class="bi bi-calendar3 text-3xl"></i>
+                        <p class="pt-2">{{ date('d/m/Y', strtotime($book->publication)) }}</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,7 +93,7 @@
                 @else
                     <div
                         class="min-w-32 min-h-32 max-w-32 max-h-32 rounded-full inline-block bg-white text-6xl font-bold pt-8 pl-6">
-                        {{ \App\Http\Controllers\BookController::initialName($author->name)  }}
+                        {{ BookController::initialName($author->name)  }}
                     </div>
                 @endif
 

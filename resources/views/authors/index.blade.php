@@ -73,7 +73,7 @@
                             'content')
                     },
                     data: data,
-                    success: function(response) {
+                    success: function() {
                         location.reload();
                     },
                     error: function(response) {

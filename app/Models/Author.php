@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * @mixin IdeHelperAuthor
+ * @mixin
  */
 class Author extends Model
 {

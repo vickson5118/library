@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * @mixin IdeHelperBook
+ * @mixin
  */
 
 class Book extends Model
@@ -25,7 +25,8 @@ class Book extends Model
         'language_id',
         'publishing_id',
         'cover',
-        'slug'
+        'slug',
+        'pdf'
     ];
 
     /**
